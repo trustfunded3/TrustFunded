@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrustFunded | Professional Funding</title>
+    <title>TrustFunded | Elite Trader Funding</title>
     <style>
         :root {
             --navy: #0b2046;
             --light-blue: #00d2ff;
-            --bull-green: #00ff88; /* Changed blue to green for traditional candles */
+            --bull-green: #00ff88;
             --bear-red: #ff4d4d;
+            --whatsapp: #25D366;
+            --card-bg: rgba(255,255,255,0.05);
         }
 
         body, html {
@@ -35,7 +37,7 @@
 
         /* --- Layout --- */
         .scene {
-            display: none; /* Hidden by default */
+            display: none;
             padding: 50px 20px;
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -54,11 +56,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 32, 70, 0.8);
+            background: rgba(11, 32, 70, 0.85);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(0,210,255,0.2);
         }
 
         .logo { font-size: 24px; font-weight: bold; }
@@ -78,18 +81,20 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 15px;
-            padding: 30px;
-            width: 260px;
+            padding: 30px 20px;
+            width: 240px;
             text-align: center;
             transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .pricing-card:hover {
             border-color: var(--light-blue);
             transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,210,255,0.2);
         }
 
-        .amount { font-size: 36px; font-weight: bold; margin: 15px 0; }
+        .amount { font-size: 32px; font-weight: bold; margin: 15px 0; color: white; }
         .fee { font-size: 18px; color: var(--light-blue); margin-bottom: 20px; }
 
         .btn {
@@ -97,45 +102,184 @@
             color: var(--navy);
             padding: 12px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 40px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
+            font-size: 16px;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .btn:hover {
+            background: transparent;
+            color: var(--light-blue);
+            border-color: var(--light-blue);
         }
 
         /* --- Payment Scene --- */
         .payment-box {
-            max-width: 500px;
-            margin: 100px auto;
-            background: white;
-            color: #333;
-            padding: 40px;
-            border-radius: 20px;
+            max-width: 560px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.95);
+            color: #1e2a41;
+            padding: 40px 35px;
+            border-radius: 28px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
         }
 
-        .payment-box h2 { color: var(--navy); margin-top: 0; }
-        .price-tag { font-size: 48px; font-weight: bold; color: var(--navy); margin: 20px 0; }
+        .payment-box h2 { 
+            color: var(--navy); 
+            margin-top: 0; 
+            font-weight: 600;
+            border-bottom: 2px solid #eef2f7;
+            padding-bottom: 20px;
+        }
+        .price-tag { 
+            font-size: 48px; 
+            font-weight: 800; 
+            color: var(--navy); 
+            margin: 10px 0 5px; 
+        }
         
-        .qr-placeholder {
-            width: 150px;
-            height: 150px;
-            background: #eee;
-            margin: 20px auto;
-            display: flex;
+        /* QR code image */
+        .qr-actual {
+            width: 180px;
+            height: 180px;
+            margin: 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .qr-actual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .wallet-address {
+            background: #f0f4fc;
+            padding: 12px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            border: 1px solid #d9e2ef;
+            margin: 20px 0 15px;
+            color: #0b1e3a;
+        }
+
+        .small-note {
+            font-size: 0.9rem;
+            color: #3a4b66;
+            margin: 15px 0 5px;
+            background: #f9faff;
+            padding: 12px;
+            border-radius: 12px;
+            border-left: 4px solid var(--light-blue);
+            text-align: left;
+        }
+        .small-note strong {
+            color: #0b2046;
+        }
+
+        .whatsapp-btn {
+            background: var(--whatsapp);
+            color: white;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            border: 2px dashed #ccc;
+            gap: 8px;
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 10px 0;
+            border: 1px solid transparent;
+        }
+        .whatsapp-btn:hover {
+            background: #1ebe5d;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .giftcard-btn {
+            background: #6c5ce7;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            border: 1px solid #8a7cf0;
+            transition: 0.2s;
+        }
+        .giftcard-btn:hover {
+            background: #5b4bc4;
         }
 
         .back-link {
-            display: block;
-            margin-top: 20px;
-            color: #666;
+            display: inline-block;
+            margin-top: 25px;
+            color: #4d5f7a;
             text-decoration: underline;
             cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
         }
+        .back-link:hover { color: var(--navy); }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #9aaec9;
+            margin: 20px 0 10px;
+        }
+        .separator-line {
+            flex: 1;
+            height: 1px;
+            background: #d0ddea;
+        }
+
+        /* verification steps */
+        .steps-box {
+            background: #e8f0fe;
+            border-radius: 18px;
+            padding: 18px;
+            text-align: left;
+            margin: 20px 0 10px;
+        }
+        .steps-box h4 {
+            margin: 0 0 10px 0;
+            color: #0b2046;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .steps-box ol {
+            margin: 0;
+            padding-left: 22px;
+            color: #1f3a5f;
+        }
+        .steps-box li {
+            margin: 8px 0;
+        }
+        .steps-box a {
+            color: #075e54;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .steps-box a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -146,12 +290,13 @@
 
     <header>
         <div class="logo">Trust<span>Funded</span></div>
+        <div style="font-size:14px; opacity:0.8;">Institutional · Transparent · Secure</div>
     </header>
 
     <main id="home-scene" class="scene active-scene">
-        <div style="text-align:center;">
-            <h1>Institutional Capital for Elite Traders</h1>
-            <p>Select your evaluation size to begin.</p>
+        <div style="text-align:center; max-width:800px; margin:0 auto;">
+            <h1 style="font-size:2.7rem; margin-bottom:10px;">Institutional Capital for <span style="color:var(--light-blue);">Elite Traders</span></h1>
+            <p style="font-size:1.2rem; opacity:0.9;">Select your evaluation size to begin. Challenge fee 100% refunded upon first payout.</p>
         </div>
 
         <div class="pricing-grid">
@@ -184,17 +329,54 @@
 
     <section id="payment-scene" class="scene">
         <div class="payment-box">
-            <h2>Complete Purchase</h2>
-            <p>You are purchasing the <strong id="selected-plan"></strong> account.</p>
+            <h2>⚡ Complete secure payment</h2>
+            <p>You are purchasing the <strong id="selected-plan"></strong> evaluation account.</p>
             <div class="price-tag" id="display-price"></div>
             
-            <div class="qr-placeholder">QR Code Image</div>
+            <!-- QR code from unsplash image (professional representation) -->
+            <div class="qr-actual">
+                <img src="https://images.unsplash.com/photo-1773615757814-afb39e119e1a?q=80&w=931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Payment QR Code">
+            </div>
             
-            <p>Please send the exact amount to the wallet address below:</p>
-            <code style="background: #f4f4f4; padding: 10px; display: block; border-radius: 5px;">0x71C765...YOUR_WALLET_ADDRESS</code>
-            
-            <button class="btn" style="margin-top:20px;" onclick="alert('Verification in progress...')">I Have Paid</button>
-            <span class="back-link" onclick="showHome()">Cancel and go back</span>
+            <p style="margin-bottom:5px;"><strong>Send exact amount to USDT (BEP20) address:</strong></p>
+            <div class="wallet-address">0x71C7651EC2ff5f84F55cBc3Ef0cEc3A1d0E3A0f7</div>
+
+            <!-- Pay with Gift Card option -->
+            <button class="giftcard-btn" onclick="alert('Gift card payment: please send screenshot via WhatsApp to 07070752053 with gift card code.')">🎁 Pay with Gift Card</button>
+
+            <div class="separator">
+                <span class="separator-line"></span>
+                <span>or</span>
+                <span class="separator-line"></span>
+            </div>
+
+            <!-- WhatsApp verification section (exactly as requested) -->
+            <div class="steps-box">
+                <h4>📱 WhatsApp verification required</h4>
+                <ol>
+                    <li>Send the <strong>exact amount</strong> to the wallet or use gift card.</li>
+                    <li>Take a screenshot of the payment receipt / transaction hash.</li>
+                    <li>Click the <strong>green button</strong> below to open WhatsApp.</li>
+                    <li>Send the screenshot + your name & selected plan to <strong>07070752053</strong>.</li>
+                    <li>Our team verifies within minutes — you'll receive login credentials.</li>
+                </ol>
+                <p style="margin:10px 0 0;font-weight:500;color:#0b2046;">📞 Support WhatsApp: <a href="https://wa.me/2347070752053">+234 707 075 2053</a></p>
+            </div>
+
+            <!-- WhatsApp button with number 07070752053 -->
+            <a href="https://wa.me/2347070752053?text=Hello%20TrustFunded%2C%20I%20have%20made%20a%20payment.%20Please%20verify%20my%20screenshot." target="_blank" style="text-decoration: none;">
+                <button class="whatsapp-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="margin-right: 5px;"><path d="M19.077 4.928C17.191 3.041 14.683 2 12.006 2 6.798 2 2.548 6.193 2.54 11.393c-.003 1.747.456 3.458 1.328 4.984L2.25 21.75l5.428-1.584c1.474.86 3.135 1.318 4.84 1.32h.004c5.198 0 9.45-4.195 9.458-9.396.004-2.51-.97-4.873-2.86-6.762zM12.016 20.04h-.003c-1.495 0-2.96-.404-4.23-1.164l-.304-.18-3.234.945.99-3.136-.184-.318A8.688 8.688 0 0 1 4.06 11.4c.007-4.37 3.56-7.92 7.94-7.92 2.12 0 4.114.827 5.614 2.326 1.5 1.5 2.326 3.494 2.322 5.614-.007 4.37-3.56 7.92-7.92 7.92zm4.34-5.563c-.236-.12-1.395-.688-1.61-.767-.216-.078-.374-.12-.532.12-.158.24-.613.767-.752.924-.14.158-.278.18-.514.06-.236-.12-1-.37-1.902-1.18-.703-.63-1.178-1.41-1.316-1.65-.14-.24-.015-.37.105-.49.108-.108.24-.282.36-.422.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.532-1.29-.73-1.77-.192-.462-.388-.4-.532-.407-.138-.007-.296-.01-.454-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2.002 0 1.18.86 2.32.98 2.48.12.16 1.673 2.56 4.06 3.52 2.386.96 2.386.64 2.82.6.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.46-.28z"/></svg>
+                    Verify via WhatsApp (+234 707 075 2053)
+                </button>
+            </a>
+
+            <!-- manual fallback -->
+            <button class="btn" style="background: #1e2f50; color:white; margin-top:5px;" onclick="window.open('https://wa.me/2347070752053?text=I%20have%20completed%20payment%20for%20TrustFunded', '_blank')">
+                📤 I have paid — send screenshot
+            </button>
+
+            <span class="back-link" onclick="showHome()">← Cancel and return to plans</span>
         </div>
     </section>
 
@@ -205,7 +387,7 @@
             document.getElementById('payment-scene').classList.add('active-scene');
             document.getElementById('display-price').innerText = price;
             document.getElementById('selected-plan').innerText = plan;
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showHome() {
@@ -221,7 +403,7 @@
         canvas.height = window.innerHeight;
 
         const candles = [];
-        const candleCount = 40;
+        const candleCount = 35;
 
         class Candle {
             constructor() {
@@ -230,17 +412,17 @@
 
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = -50 - (Math.random() * 500);
-                this.speed = 1 + Math.random() * 2;
-                this.width = 10;
-                this.bodyHeight = 20 + Math.random() * 40;
-                this.wickHeight = this.bodyHeight + 15;
-                this.color = Math.random() > 0.5 ? '#00ff88' : '#ff4d4d'; // Bull or Bear
+                this.y = -80 - (Math.random() * 400);
+                this.speed = 0.8 + Math.random() * 2.2;
+                this.width = 8 + Math.random() * 6;
+                this.bodyHeight = 18 + Math.random() * 45;
+                this.wickHeight = this.bodyHeight + 14;
+                this.color = Math.random() > 0.5 ? '#00ff88' : '#ff4d4d';
             }
 
             update() {
                 this.y += this.speed;
-                if (this.y > canvas.height) this.reset();
+                if (this.y > canvas.height + 100) this.reset();
             }
 
             draw() {
@@ -248,13 +430,13 @@
                 ctx.fillStyle = this.color;
                 ctx.lineWidth = 2;
 
-                // Draw Wick
+                // Wick
                 ctx.beginPath();
                 ctx.moveTo(this.x + this.width/2, this.y);
                 ctx.lineTo(this.x + this.width/2, this.y + this.wickHeight);
                 ctx.stroke();
 
-                // Draw Body
+                // Body
                 ctx.fillRect(this.x, this.y + 5, this.width, this.bodyHeight);
             }
         }
